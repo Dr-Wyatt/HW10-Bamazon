@@ -31,7 +31,7 @@ function optionsMenu() {
         } else if (answers.Options == "Add to Inventory") {
             addInventory();
         } else if (answers.Options == "Add New Product") {
-            console.log(answers.Options);
+            addProduct();
         } else {
             connection.end();
         }
@@ -81,3 +81,36 @@ function addInventory() {
         });
     });
 } 
+
+function addProduct() {
+    inquirer.prompt([
+        {
+            message: "Please enter a product name",
+            name: "product_name"
+        },
+        {
+            message: "Please enter the department name it belongs to",
+            name: "department_name"
+        }, 
+        {
+            message: "Please enter the price",
+            name: "price"
+        }, 
+        {
+            message: "Please enter inventory amount",
+            name: "amount"
+        }
+    ]).then(answers => {
+        connection.query("INSERT INTO products SET ?", 
+        {
+            product_name: answers.product_name, 
+            department_name: answers.department_name,
+            price: answers.price,
+            stock_quantity: answers.amount
+        }, function (err, res){
+            console.log("Successfully added new product!");
+            optionsMenu();
+        }
+    );
+    })
+}
