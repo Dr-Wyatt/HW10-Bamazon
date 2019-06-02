@@ -27,7 +27,7 @@ function optionsMenu() {
         if (answers.Options == "View Products for Sale") {
             viewProducts();
         } else if (answers.Options == "View Low Inventory"){
-            console.log(answers.Options);
+            viewLowInventory();
         } else if (answers.Options == "Add to Inventory") {
             console.log(answers.Options);
         } else if (answers.Options == "Add New Product"){
@@ -42,6 +42,14 @@ function optionsMenu() {
 
 function viewProducts(){
     connection.query("SELECT item_id, product_name, price, stock_quantity FROM products", function (err, res) {
+        if (err) throw err;
+        console.table(res);
+        optionsMenu();
+    });
+}
+
+function viewLowInventory(){
+    connection.query("SELECT * FROM products WHERE stock_quantity < 5", function (err, res) {
         if (err) throw err;
         console.table(res);
         optionsMenu();
