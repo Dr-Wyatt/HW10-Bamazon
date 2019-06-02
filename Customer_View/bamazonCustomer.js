@@ -19,26 +19,8 @@ function displayItems(){
     connection.query("SELECT item_id, product_name, price, stock_quantity FROM products", function (err, res) {
         if (err) throw err;
         console.table(res);
-        purchaseOrEnd();
+        purchaseItem();
     });
-}
-
-function purchaseOrEnd() {
-    inquirer.prompt([
-        {
-            message: "Purchase or End?",
-            name: "PurchaseEnd",
-            type: "list",
-            choices: ["Purchase", "End"]
-        }
-    ]).then(answers => {
-        if (answers.PurchaseEnd == "Purchase") {
-            purchaseItem();
-        } else {
-            connection.end();
-        }
-
-    })
 }
 
 function toContinue(){
