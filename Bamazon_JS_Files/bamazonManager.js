@@ -18,7 +18,7 @@ connection.connect(function (err) {
 function optionsMenu() {
     inquirer.prompt([
         {
-            message: "What would you like to do?",
+            message: "What would you like to do today?",
             name: "Options",
             type: "list",
             choices: ["View Products for Sale", "View Low Inventory", "Add to Inventory", "Add New Product", "End"]
