@@ -57,9 +57,9 @@ function purchaseItem(){
             }
         ]).then(answers => {
             let purchasedItem = res.find(item => item.item_id == answers.purchase_item);
-            console.log(purchasedItem.item_id);
             if (purchasedItem.stock_quantity < answers.purchase_amount) {
                 console.log("Insufficient quantity! Please try again later.");
+                toContinue();
             } else {
                 let newStock = purchasedItem.stock_quantity - parseInt(answers.purchase_amount);
                 let cost = answers.purchase_amount * purchasedItem.price;
